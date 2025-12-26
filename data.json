@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Example Video 1",
+        "img": "https://via.placeholder.com/300",
+        "link": "https://google.com"
+    },
+    {
+        "title": "Example Video 2",
+        "img": "https://via.placeholder.com/300",
+        "link": "https://bing.com"
+    }
+]
