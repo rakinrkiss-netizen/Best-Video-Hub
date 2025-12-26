@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Aggregator Site</title>
+    <style>
+        body { background: #111; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; }
+        h1 { text-align: center; color: #ff4500; font-size: 20px; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* মোবাইলে পাশাপাশি ২টি দেখাবে */
+            gap: 10px;
+        }
+
+        /* ট্যাবলেটে বা পিসিতে ৪টি দেখাবে */
+        @media (min-width: 600px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .card {
+            background: #222;
+            border-radius: 5px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .card img { width: 100%; height: 120px; object-fit: cover; }
+        .card p { padding: 5px; font-size: 12px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .btn {
+            display: block;
+            background: #ff4500;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Latest Videos</h1>
+    
+    <div class="grid" id="video-container">
+        <!-- এখানে ভিডিও লোড হবে -->
+    </div>
+
+    <script>
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('video-container');
+                // নতুন ভিডিও সবার আগে দেখানোর জন্য reverse() করা হলো
+                data.reverse().forEach(item => {
+                    const html = `
+                        <a href="${item.link}" class="card" target="_blank">
+                            <img src="${item.img}" alt="Video">
+                            <p>${item.title}</p>
+                        </a>
+                    `;
+                    container.innerHTML += html;
+                });
+            })
+            .catch(err => console.log('Error loading data:', err));
+    </script>
+
+</body>
+</html>
